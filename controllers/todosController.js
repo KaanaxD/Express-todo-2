@@ -1,5 +1,5 @@
 let todos = require("../data/todos");
-let { todoIndex, addTask, doneUpdate, notDoneUpdate } = require("../services/todosService");
+let { todoIndex, addTask, doneUpdate, notDoneUpdate, edit } = require("../services/todosService");
 
 function getTodos(req, res) {
   res.json({
@@ -41,11 +41,20 @@ function notDoneTodo(req, res) {
     }
 }
 
+function editTask(req,res){
+    try {
+        res.json(edit(req.params.id,req.body.task,req.body.status));
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+
 
 module.exports = {
   getTodos,
   getById,
   postTodo,
   doneTodo,
-  notDoneTodo
+  notDoneTodo,
+  editTask
 };

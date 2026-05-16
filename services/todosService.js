@@ -50,8 +50,8 @@ function doneUpdate(id) {
   return {
     succes: true,
     message: "done diubah menjadi true",
-    task: todos[index]
-  }
+    task: todos[index],
+  };
 }
 
 function notDoneUpdate(id) {
@@ -66,6 +66,24 @@ function notDoneUpdate(id) {
   return {
     succes: true,
     message: "done diubah menjadi false",
+    task: todos[index],
+  };
+}
+
+function edit(id, newName, newStatus) {
+  let index = idIndex(id);
+  if (index == -1) {
+    throw {
+      succes: false,
+      message: "task tidak ditemukan",
+    };
+  }
+  todos[index].task = newName
+  todos[index].done = newStatus
+
+  return{
+    succes: true,
+    message: "Nama dan status berhasil diedit",
     task: todos[index]
   }
 }
@@ -74,5 +92,6 @@ module.exports = {
   todoIndex,
   addTask,
   doneUpdate,
-  notDoneUpdate
+  notDoneUpdate,
+  edit,
 };

@@ -10,7 +10,6 @@ app.use(express.urlencoded())
 app.use("/api/todos", auth ,todosRouter)
 app.use("/api/login", loginRouter)
 
-
 app.listen(3000,function(){
     console.log("Aktif di port 3000")
 })
