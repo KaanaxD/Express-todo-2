@@ -23,7 +23,12 @@ function todoIndex(id) {
 }
 
 function addTask(task) {
-  let newId = todos[todos.length - 1].id + 1;
+  let newId;
+  if (todos.length==0) {
+    newId = 1;
+  } else {
+    newId = todos[todos.length - 1].id + 1;
+  }
   let newTask = {
     id: newId,
     task: task,
@@ -78,14 +83,31 @@ function edit(id, newName, newStatus) {
       message: "task tidak ditemukan",
     };
   }
-  todos[index].task = newName
-  todos[index].done = newStatus
+  todos[index].task = newName;
+  todos[index].done = newStatus;
 
-  return{
+  return {
     succes: true,
     message: "Nama dan status berhasil diedit",
-    task: todos[index]
+    task: todos[index],
+  };
+}
+
+function removeTask(id) {
+  let index = idIndex(id);
+  if (index == -1) {
+    throw {
+      succes: false,
+      message: "task tidak ditemukan",
+    };
   }
+  todos.splice(index, 1);
+  console.log(todos);
+  return {
+    succes: true,
+    message: "Task berhasil dhhapus",
+    todos: todos,
+  };
 }
 
 module.exports = {
@@ -94,4 +116,5 @@ module.exports = {
   doneUpdate,
   notDoneUpdate,
   edit,
+  removeTask,
 };

@@ -1,5 +1,12 @@
 let todos = require("../data/todos");
-let { todoIndex, addTask, doneUpdate, notDoneUpdate, edit } = require("../services/todosService");
+let {
+  todoIndex,
+  addTask,
+  doneUpdate,
+  notDoneUpdate,
+  edit,
+  removeTask
+} = require("../services/todosService");
 
 function getTodos(req, res) {
   res.json({
@@ -9,46 +16,52 @@ function getTodos(req, res) {
 }
 
 function getById(req, res) {
-
-    try {
-        res.json(todoIndex(req.params.id));
-    } catch (error) {
-        res.status(404).json(error)
-    }
+  try {
+    res.json(todoIndex(req.params.id));
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }
 
 function postTodo(req, res) {
-    try {
-        res.json(addTask(req.body.task));
-    } catch (error) {
-        res.status(404).json(error)
-    }
+  try {
+    res.json(addTask(req.body.task));
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }
 
 function doneTodo(req, res) {
-    try {
-        res.json(doneUpdate(req.params.id));
-    } catch (error) {
-        res.status(404).json(error)
-    }
+  try {
+    res.json(doneUpdate(req.params.id));
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }
 
 function notDoneTodo(req, res) {
-    try {
-        res.json(notDoneUpdate(req.params.id));
-    } catch (error) {
-        res.status(404).json(error)
-    }
+  try {
+    res.json(notDoneUpdate(req.params.id));
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }
 
-function editTask(req,res){
-    try {
-        res.json(edit(req.params.id,req.body.task,req.body.status));
-    } catch (error) {
-        res.status(404).json(error)
-    }
+function editTask(req, res) {
+  try {
+    res.json(edit(req.params.id, req.body.task, req.body.status));
+  } catch (error) {
+    res.status(404).json(error);
+  }
 }
 
+function deleteTask(req, res) {
+  try {
+    res.json(removeTask(req.params.id));
+  } catch (error) {
+    res.status(404).json(error);
+  }
+}
 
 module.exports = {
   getTodos,
@@ -56,5 +69,6 @@ module.exports = {
   postTodo,
   doneTodo,
   notDoneTodo,
-  editTask
+  editTask,
+  deleteTask,
 };
